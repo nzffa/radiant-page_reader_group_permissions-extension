@@ -14,16 +14,27 @@ rescue LoadError
   puts "Jeweler (or a dependency) not available. This is only required if you plan to package page_group_permissions as a gem."
 end
 
-
-
 # I think this is the one that should be moved to the extension Rakefile template
 
 # In rails 1.2, plugins aren't available in the path until they're loaded.
 # Check to see if the rspec plugin is installed first and require
 # it if it is.  If not, use the gem version.
-require File.join(File.dirname(__FILE__), '..', '..', '..', 'config', 'boot')
+
+# Determine where the RSpec plugin is by loading the boot
+unless defined? RADIANT_ROOT
+  ENV["RAILS_ENV"] = "test"
+  case
+  when ENV["RADIANT_ENV_FILE"]
+    require File.dirname(ENV["RADIANT_ENV_FILE"]) + "/boot"
+  when File.dirname(__FILE__) =~ %r{vendor/radiant/vendor/extensions}
+    require "#{File.expand_path(File.dirname(__FILE__) + "/../../../../../")}/config/boot"
+  else
+    require "#{File.expand_path(File.dirname(__FILE__) + "/../../../")}/config/boot"
+  end
+end
+
 require 'rake'
-require 'rake/rdoctask'
+require 'rdoc/task'
 
 rspec_base = File.expand_path(File.dirname(__FILE__) + '/../../radiant/vendor/plugins/rspec/lib')
 $LOAD_PATH.unshift(rspec_base) if File.exist?(rspec_base)
