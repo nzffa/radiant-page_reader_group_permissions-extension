@@ -24,13 +24,17 @@ class PageGroupPermissionsExtension < Radiant::Extension
       if self.respond_to?(:tab)
         add_tab "Settings" do
           add_item "Groups", "/admin/groups", :after => "Users", :visibility => [:admin]
+          admin.page.index.add :node, "page_group_td", :before => "status_column"
+          admin.page.index.add :sitemap_head, "page_group_th", :before => "status_column_header"
+          admin.page.edit.add :form, 'page_group_form_part'
         end
       else
         admin.tabs.add "Groups", "/admin/groups", :after => "Layouts", :visibility => [:admin]
+        admin.pages.index.add :node, "page_group_td", :before => "status_column"
+        admin.pages.index.add :sitemap_head, "page_group_th", :before => "status_column_header"
+        admin.pages.edit.add :parts_bottom, "page_group_form_part", :after => "edit_timestamp"
       end
-      admin.pages.index.add :node, "page_group_td", :before => "status_column"
-      admin.pages.index.add :sitemap_head, "page_group_th", :before => "status_column_header"
-      admin.pages.edit.add :parts_bottom, "page_group_form_part", :after => "edit_timestamp"
+      
     end
   end
 
