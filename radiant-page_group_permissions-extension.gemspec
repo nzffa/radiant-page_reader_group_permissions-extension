@@ -4,14 +4,14 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{radiant-page_group_permissions-extension}
-  s.version = "1.0.0"
+  s.name = "radiant-page_group_permissions-extension"
+  s.version = "1.0.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Matt Freels", "Nikos Dimitrakopoulos", "Jim Gay", "Matthew Bass", "Andrew vonderLuft"]
-  s.date = %q{2011-05-12}
-  s.description = %q{Enables you to organize users into groups and apply group-based edit permissions to the page hierarchy.}
-  s.email = %q{avonderluft@avlux.net}
+  s.date = "2013-02-18"
+  s.description = "Enables you to organize users into groups and apply group-based edit permissions to the page hierarchy."
+  s.email = "avonderluft@avlux.net"
   s.extra_rdoc_files = [
     "README.textile"
   ]
@@ -41,22 +41,17 @@ Gem::Specification.new do |s|
     "public/images/page_group_permissions/add-member.png",
     "public/images/page_group_permissions/new-group.png",
     "public/images/page_group_permissions/remove-member.png",
+    "radiant-page_group_permissions-extension.gemspec",
     "spec/controllers/groups_controller_spec.rb",
     "spec/helpers/groups_helper_spec.rb",
     "spec/models/group_spec.rb",
     "spec/spec.opts",
     "spec/spec_helper.rb"
   ]
-  s.homepage = %q{https://github.com/avonderluft/radiant-page_group_permissions-extension}
+  s.homepage = "https://github.com/avonderluft/radiant-page_group_permissions-extension"
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.5.2}
-  s.summary = %q{Page Group Permissions Extension for Radiant CMS}
-  s.test_files = [
-    "spec/controllers/groups_controller_spec.rb",
-    "spec/helpers/groups_helper_spec.rb",
-    "spec/models/group_spec.rb",
-    "spec/spec_helper.rb"
-  ]
+  s.rubygems_version = "1.8.25"
+  s.summary = "Page Group Permissions Extension for Radiant CMS"
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
