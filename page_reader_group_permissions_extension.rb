@@ -8,7 +8,7 @@ rescue MissingSourceFile
   require_dependency 'application'
 end
 
-class PageGroupPermissionsExtension < Radiant::Extension
+class PageReaderGroupPermissionsExtension < Radiant::Extension
 
   version "#{File.read(File.expand_path(File.dirname(__FILE__)) + '/VERSION')}"
   description "Enables you to organize users into groups and apply group-based edit permissions to the page hierarchy."
