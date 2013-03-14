@@ -5,3 +5,4 @@ log/*.log
 db/*.sqlite3
 *.svn
 *.gem
+.idea
