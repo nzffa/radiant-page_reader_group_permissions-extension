@@ -1,5 +1,5 @@
-require_dependency 'model_extensions'
-require_dependency 'controller_extensions'
+require_dependency 'page_reader_group_permissions/model_extensions'
+require_dependency 'page_reader_group_permissions/controller_extensions'
 
 # Uncomment this if you reference any of your controllers in activate
 begin
@@ -9,27 +9,27 @@ rescue MissingSourceFile
 end
 
 class PageReaderGroupPermissionsExtension < Radiant::Extension
-
   version "#{File.read(File.expand_path(File.dirname(__FILE__)) + '/VERSION')}"
   description "Enables you to organize users into groups and apply group-based edit permissions to the page hierarchy."
-  url "https://github.com/avonderluft/radiant-page_group_permissions-extension"  
+  url "https://github.com/enspiral/radiant-page_reader_group_permissions-extension"
 
   def activate
+    require 'group'
+    raise "A group class should already be defined by the readers extension" unless defined?(Group)
+
     if Group.table_exists?
-      User.module_eval &UserModelExtensions
-      Page.module_eval &PageModelExtensions
-      Admin::PagesController.module_eval &PageControllerExtensions
+      Group.extend(PageReaderGroupPermissions::GroupExtensions)
+
+      User.module_eval &PageReaderGroupPermissions::UserModelExtensions
+      Page.module_eval &PageReaderGroupPermissions::PageModelExtensions
+      Admin::PagesController.module_eval &PageReaderGroupPermissions::PageControllerExtensions
       UserActionObserver.instance.send :add_observer!, Group
       
       if self.respond_to?(:tab)
-        add_tab "Settings" do
-          add_item "Groups", "/admin/groups", :after => "Users", :visibility => [:admin]
-          admin.page.index.add :node, "page_group_td", :before => "status_column"
-          admin.page.index.add :sitemap_head, "page_group_th", :before => "status_column_header"
-          admin.page.edit.add :form, 'page_group_form_part'
-        end
+        admin.page.index.add :node, "page_group_td", :before => "status_column"
+        admin.page.index.add :sitemap_head, "page_group_th", :before => "status_column_header"
+        admin.page.edit.add :form, 'page_group_form_part'
       else
-        admin.tabs.add "Groups", "/admin/groups", :after => "Layouts", :visibility => [:admin]
         admin.pages.index.add :node, "page_group_td", :before => "status_column"
         admin.pages.index.add :sitemap_head, "page_group_th", :before => "status_column_header"
         admin.pages.edit.add :parts_bottom, "page_group_form_part", :after => "edit_timestamp"
@@ -37,5 +37,4 @@ class PageReaderGroupPermissionsExtension < Radiant::Extension
       
     end
   end
-
 end

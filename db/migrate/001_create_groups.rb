@@ -2,14 +2,7 @@ class CreateGroups < ActiveRecord::Migration
   def self.up
     User.send :has_and_belongs_to_many, :groups
     Page.send :belongs_to, :group
-    create_table :groups do |t|
-      t.string :name
-      t.text :notes
-      t.integer :created_by, :updated_by
 
-      t.timestamps
-    end
-    
     create_table(:groups_users, :id => false) do |t|
       t.integer :group_id, :user_id
     end
