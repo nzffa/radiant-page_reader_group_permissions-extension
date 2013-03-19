@@ -2,8 +2,12 @@ module PageReaderGroupPermissions
   PageModelExtensions = Proc.new do
     belongs_to :group
 
-    def group_owners
-      self.group.nil? ? [] : self.group.users
+    def editable_by_reader?(reader)
+      visible_to_reader?(reader)
+    end
+
+    def visible_to_reader?(reader)
+      group && reader && group.visible_to?(reader)
     end
 
     def group_name

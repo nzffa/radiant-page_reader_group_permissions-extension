@@ -12,7 +12,7 @@ module PageReaderGroupPermissions
       page = Page.find(params[:id] || params[:page_id] || params[:parent_id] || params[:page][:parent_id])
 
       until page.nil? do
-        return true if page.group_owners.include? current_user
+        return true if page.editable_by_reader?(current_user.reader)
         page = page.parent
       end
 
