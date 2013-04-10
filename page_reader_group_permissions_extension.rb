@@ -24,7 +24,11 @@ class PageReaderGroupPermissionsExtension < Radiant::Extension
       Page.module_eval &PageReaderGroupPermissions::PageModelExtensions
       Admin::PagesController.module_eval &PageReaderGroupPermissions::PageControllerExtensions
       UserActionObserver.instance.send :add_observer!, Group
-      
+
+      Admin::AssetsController.module_eval do
+        only_allow_access_to :index, :when => [:admin, :designer]
+      end
+
       if self.respond_to?(:tab)
         admin.page.index.add :node, "page_group_td", :before => "status_column"
         admin.page.index.add :sitemap_head, "page_group_th", :before => "status_column_header"
