@@ -16,7 +16,6 @@ module PageReaderGroupPermissions
   end
 
   UserModelExtensions = Proc.new do
-    has_and_belongs_to_many :groups
     def designer_or_developer?
       respond_to?(:designer?) ? designer? : developer?
     end
