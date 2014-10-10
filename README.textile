@@ -4,6 +4,8 @@ Created by Matt Freels
 
 This extension allows you to organize your users into groups and divide up site-editing privileges accordingly. It requires Radiant 0.8+ and the Shards extension found in the official Radiant repository.
 
+We've just integrated the extension with Readers so we use readers as users and readers groups for permissions. 
+
 h2. Installation
 
 h3. From the Radiant Extension Registry
