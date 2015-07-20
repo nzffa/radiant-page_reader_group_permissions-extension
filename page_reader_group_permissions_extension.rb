@@ -30,8 +30,8 @@ class PageReaderGroupPermissionsExtension < Radiant::Extension
       end
 
       if self.respond_to?(:tab)
-        admin.page.index.add :node, "page_group_td", :before => "status_column"
-        admin.page.index.add :sitemap_head, "page_group_th", :before => "status_column_header"
+        admin.page.index.add :node, "page_group_td", :before => "actions_column"
+        admin.page.index.add :sitemap_head, "page_group_th", :before => "actions_column_header"
         admin.page.edit.add :form, 'page_group_form_part'
       else
         admin.pages.index.add :node, "page_group_td", :before => "status_column"
