@@ -2,4 +2,4 @@
   %p#group-id
     %label{:for => "page_group_id"} Owning Group:
     %select#page_group_id{:name => "page[group_id]"}
-      = options_for_select(Group.find(:all, :order => 'name ASC').map{|g| [g.name, g.id]}.unshift(['—', '']), (@page.group.nil? ? '' : @page.group.id))
+      = options_for_select(Group.find(:all, :order => 'name ASC').map{|g| [g.name, g.id]}.unshift(['-', '']), (@page.group.nil? ? '' : @page.group.id))
