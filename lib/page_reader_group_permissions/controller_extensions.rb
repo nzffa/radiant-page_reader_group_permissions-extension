@@ -26,4 +26,20 @@ module PageReaderGroupPermissions
       end
     end
   end
+  
+  AdminReadersControllerExtensions = Proc.new do
+    def build_user
+      @reader = Reader.find params[:id]
+      @user = @reader.build_user
+      if @user
+        if @user.save
+          @reader.update_attribute(:user_id, @user.id)
+          flash[:notice] = "Created user #{@user.login}"
+        else
+          flash[:error] = error_messages_for(:user)
+        end
+      end
+      redirect_to edit_admin_reader_path(@reader.id)
+    end
+  end
 end

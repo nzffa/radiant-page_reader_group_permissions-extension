@@ -22,7 +22,10 @@ class PageReaderGroupPermissionsExtension < Radiant::Extension
 
       User.module_eval &PageReaderGroupPermissions::UserModelExtensions
       Page.module_eval &PageReaderGroupPermissions::PageModelExtensions
+      Reader.module_eval &PageReaderGroupPermissions::ReaderModelExtensions
       Admin::PagesController.module_eval &PageReaderGroupPermissions::PageControllerExtensions
+      Admin::ReadersController.module_eval &PageReaderGroupPermissions::AdminReadersControllerExtensions
+      
       UserActionObserver.instance.send :add_observer!, Group
 
       Admin::AssetsController.module_eval do
@@ -39,6 +42,7 @@ class PageReaderGroupPermissionsExtension < Radiant::Extension
         admin.pages.edit.add :parts_bottom, "page_group_form_part", :after => "edit_timestamp"
       end
       
+      admin.reader.edit.add :form, 'show_or_create_backend_login', :after => "edit_notes"
     end
   end
 end

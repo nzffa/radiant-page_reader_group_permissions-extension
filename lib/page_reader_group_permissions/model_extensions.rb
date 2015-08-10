@@ -20,4 +20,15 @@ module PageReaderGroupPermissions
       respond_to?(:designer?) ? designer? : developer?
     end
   end
+  
+  ReaderModelExtensions = Proc.new do
+    def build_user
+      return nil if user
+  
+      user_attrs = self.attributes.slice(*%w{name email created_at notes})
+      random_pass = rand().to_s
+      User.new(user_attrs.merge(:password => random_pass, :password_confirmation => random_pass, :login => email))
+    end
+  end
+  
 end

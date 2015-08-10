@@ -1,0 +1,12 @@
+%h4 Has backend login?
+%p
+  - if @reader.user
+    Yes
+    - parts = []
+    - parts << "admin" if @reader.user.admin?
+    - parts << "designer" if @reader.user.designer?
+    - group_count = @reader.groups.count
+    - parts << pluralize(group_count, 'group') if group_count > 0
+    = "(#{parts.join(' | ')})" unless parts.empty?
+  - else
+    = link_to('create', build_user_path(@reader.id), :method => :post)

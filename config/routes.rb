@@ -8,5 +8,8 @@ ActionController::Routing::Routes.draw do |map|
       group.add_member_admin_group 'admin/groups/:id/add_member', :action => 'add_member', :conditions => {:method => :post}
       group.remove_member_admin_group 'admin/groups/:group_id/remove_member/:id', :action => 'remove_member'
     end
+    map.with_options(:controller => 'admin/readers') do |reader|
+      reader.build_user 'admin/readers/:id/build_user', :action => 'build_user'
+    end
   end
 end
