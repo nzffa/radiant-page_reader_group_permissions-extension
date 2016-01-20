@@ -9,4 +9,7 @@
     - parts << pluralize(group_count, 'group') if group_count > 0
     = "(#{parts.join(' | ')})" unless parts.empty?
   - else
-    = link_to('create', build_user_path(@reader.id), :method => :post)
+    - if @reader.new_record?
+      You need to save this reader before you can build a backend login for it.
+    - else
+      = link_to('create', build_user_path(@reader.id), :method => :post)
