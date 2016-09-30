@@ -7,7 +7,7 @@ module PageReaderGroupPermissions
     end
 
     def visible_to_reader?(reader)
-      group && reader && group.visible_to?(reader)
+      group && reader && visible_to?(reader)
     end
 
     def group_name
